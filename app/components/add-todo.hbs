@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="add-outer-div">
+    <div class="add-inner-div">
+        <button type="submit" {{action "popup" "pop-up" on="click"}}>ADD TASK</button>
+    </div>
+</div>
+<div class="popup-div" id="pop-up">
+    <div class="popup-sub-div">
+        <div class="popup-head">
+            Create your Task
+            <button id="close" class="close" type="button" {{action "close" 'pop-up' on="click"}}><p>&times;</p></button>
+        </div>
+        <form id="add-task-form" {{action "submit" on="submit"}}>
+            <TodoForm  />
+        </form>
+    </div>
+</div>
+<div class="list-outer-div">
+    {{#if this.task}}
+    <table class="list-table">
+        <thead style="text">
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each this.task as |items|}}
+            <tr class="list">
+                <td>{{items.id}}</td>
+                <td style="width: 30vw;">{{items.task}}</td>
+                <td><div class="col-date">{{items.date}}</div></td>
+                {{#if (eq items.status "In Progress")}}
+                    <td class="col-status">
+                        <div class="status-progress">{{items.status}}</div>
+                    </td>
+                {{else}}
+                    <td class="col-status">
+                        <div class="status-completed">{{items.status}}</div>
+                    </td>
+                {{/if}}
+                <td><button type="button" id="edit-btn" class="edit-btn" title="edit" {{action "popup" "pop-up2" items on="click"}}>&#9998;</button></td>
+                <td><button type="button" id="delete-btn" class="delete-btn" {{action 'deleteTask' items on="click"}}><i class="fa fa-trash-o"></i></button></td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+</div>
+<div id="pop-up2">
+    <div class="edit-todo" id="edit-todo">
+    <div class="edit-todo-head">
+        Edit your Task
+        <button id='edit-close' class="edit-popup-close" type="button" {{action "close" "pop-up2" on="click"}}><p>&times;</p></button>
+    </div>
+    <EditTodo @editRecord={{this.record}} />
+</div>
+</div>

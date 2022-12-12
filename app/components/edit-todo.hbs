@@ -1,0 +1,19 @@
+<div class="edit-form">
+    <form id="title-form" {{action "editTitle" @editRecord on="submit"}}>
+        <input id="input-title" type="text" placeholder="Change Your title">
+        <button type="submit">Change</button>
+    </form>
+    <form id="date-form" {{action "editDate" @editRecord on="submit"}}>
+        {{!-- <input type="date" id="edit-date"> --}}
+        <input id="edit-date" {{pikaday format='DD.MM.YYYY' value=this.startDate onSelect=this.setStartDate}} placeholder="Change your Date"/>
+        <button type="submit">Change</button>
+    </form>
+    <form id="date-form"{{action "editStatus" @editRecord on="submit"}}>
+        <select id="edit-status">
+            <option>Choose your status</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+        <button type="submit">Change Status</button>
+    </form>
+</div>
